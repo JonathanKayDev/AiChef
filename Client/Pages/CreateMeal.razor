@@ -24,6 +24,35 @@
                         <label class="form-label">Ingredient</label>
                         <InputText placeholder="Add Ingredient" maxlength="30" @bind-Value="meal.Ingredient" class="form-control mb-2"></InputText>
                     </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-success" @onclick="AddIngredient">Add</button>
+                        <button class="btn btn-outline-danger" @onclick="ClearIngredients">Clear</button>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Ingredients</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ingredients)
+                                    {
+                                        <tr>
+                                            <td>@item.Description</td>
+                                            <td class="text-end pe-3">
+                                                <button class="btn btn-outline-danger" @onclick="() => RemoveIngredient(item.Id)"><i class="bi bi-trash-fill"></i></button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-success rounded">Generate</button>
+                    </div>
                 </div>
             </EditForm>
         </div>
@@ -34,6 +63,7 @@
 @code {
     private EditContext? editContext;
     private Meal meal = new();
+    private List<Ingredient> ingredients = new List<Ingredient>();
 
     protected override void OnInitialized()
     {
@@ -45,4 +75,29 @@
         public string? MealTime { get; set; }    
         public string? Ingredient { get; set; }
     }
+
+    private void AddIngredient()
+    {
+        if (!string.IsNullOrEmpty(meal.Ingredient) && !ingredients.Any(i => i.Description == meal.Ingredient))
+        {
+            ingredients.Add(new Ingredient()
+            {
+                Id = Guid.NewGuid(),
+                Description = meal.Ingredient            });
+        }
+
+        //clear the input text box
+        meal.Ingredient = string.Empty;
+    }
+
+    private void ClearIngredients()
+    {
+        ingredients.Clear();
+    }
+
+    private void RemoveIngredient(Guid id)
+    {
+        ingredients.Remove(ingredients.First(i => i.Id == id));
+    }
+
 }
