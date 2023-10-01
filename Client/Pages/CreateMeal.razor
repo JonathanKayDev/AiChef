@@ -70,6 +70,13 @@
     private Meal meal = new();
     private List<Ingredient> ingredients = new List<Ingredient>();
 
+    private class Meal
+    {
+        public string? MealTime { get; set; }
+        public string? Ingredient { get; set; }
+    }
+
+
     protected override void OnInitialized()
     {
         if (recipeState is null)
@@ -82,12 +89,6 @@
 
         meal.MealTime = recipeState.MealTime;
         ingredients = recipeState.Ingredients;
-    }
-
-    private class Meal
-    {
-        public string? MealTime { get; set; }    
-        public string? Ingredient { get; set; }
     }
 
     private void AddIngredient()
