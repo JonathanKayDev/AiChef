@@ -1,3 +1,4 @@
+using AiChef.Server.Services;
 using Microsoft.AspNetCore.ResponseCompression;
 
 namespace AiChef
@@ -12,6 +13,7 @@ namespace AiChef
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
+            builder.Services.AddScoped<IOpenAIAPI, OpenAIService>();
 
             var app = builder.Build();
 
