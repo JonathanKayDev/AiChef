@@ -4,10 +4,26 @@
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
-<div class="container mt-5">
-    <h1>Meal Recipe</h1>
-    <p>Idea Index = @index</p>
-    <p>Recipe title = @title</p>
+<div class="container mt-5 h-100">
+    <div class="d-flex flex-column flex-lg-row justify-content-start">
+        <div class="text-center text-lg-start">
+            <img class="rounded-3"/>
+        </div>
+        <div class="flex-grow-1 px-3">
+            <h1 class="fw-bold">@title</h1>
+            <p>Description Goes</p>
+
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2">
+        <div class="col mt-3">
+            <h2>Ingredients</h2>
+            
+        </div>
+        <div class="col">
+            Instructions
+        </div>
+    </div>
 </div>
 
 
