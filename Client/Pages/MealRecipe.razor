@@ -1,6 +1,7 @@
 ﻿@page "/mealrecipe/{Index:int}"
 @using AiChef.Shared
 @using System.Text.Json
+@using System.Web
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 
@@ -11,7 +12,7 @@
         </div>
         <div class="flex-grow-1 px-3">
             <h1 class="fw-bold">@title</h1>
-            <p>Description Goes</p>
+            <p>Description Goes Here</p>
 
         </div>
     </div>
@@ -21,7 +22,7 @@
             
         </div>
         <div class="col">
-            Instructions
+            <h2>Instructions</h2>
         </div>
     </div>
 </div>
@@ -39,10 +40,46 @@
     public int index { get; set; }
 
     private string title;
+    private string recipeImageUrl = string.Empty;
+    private Recipe recipe;
 
     protected override void OnInitialized()
     {
-        title = recipeState.RecipeIdeas.FirstOrDefault(i => i.Index == index).Title;
+        GetRecipe();
     }
 
+    private async void GetRecipe()
+    {
+        string baseuri = "Recipe/GetRecipe";
+
+        try
+        {
+            title = recipeState.RecipeIdeas.FirstOrDefault(i => i.Index == index).Title;
+
+            RecipeParams recipeParams = new RecipeParams()
+                {
+                    MealTime = recipeState.MealTime,
+                    Ingredients = recipeState.Ingredients,
+                    SelectedIdea = title
+                };
+
+            // get the recipe image
+            HttpResponseMessage responseImage = await httpClient.GetAsync($"Recipe/GetRecipeImage?title={HttpUtility.UrlEncode(title)}");
+            var recipeImage = await responseImage.Content.ReadFromJsonAsync<RecipeImage>();
+            recipeImageUrl = recipeImage!.Data[0].Url;
+
+            // get the recipe
+            HttpResponseMessage responseRecipe = await httpClient.PostAsJsonAsync(baseuri, recipeParams);
+            responseRecipe.EnsureSuccessStatusCode();
+            recipe = await responseRecipe.Content.ReadFromJsonAsync<Recipe>();
+
+            // notify web assembly that the state has changed, to update UI
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+            throw;
+        }
+    }
 }

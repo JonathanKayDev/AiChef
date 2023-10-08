@@ -34,10 +34,21 @@ namespace AiChef.Server.Controllers
 
             var ideas = await _openAIservice.CreateRecipeIdeas(mealtime, ingredients);
 
-            return ideas;
-            //return SampleData.RecipeIdeas;
+            //return ideas;
+            return SampleData.RecipeIdeas;
         }
-        
+
+        [HttpPost, Route("GetRecipe")]
+        public async Task<ActionResult<Recipe>> GetRecipe(RecipeParams recipeParams)
+        {
+            return SampleData.Recipe;
+        }
+
+        [HttpGet, Route("GetRecipeImage")]
+        public async Task<RecipeImage> GetRecipeImage(string title)
+        {
+            return SampleData.RecipeImage;
+        }
     
     }
 }
