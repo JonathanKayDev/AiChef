@@ -21,18 +21,18 @@ namespace AiChef.Server.Controllers
         [HttpPost, Route("GetRecipeIdeas")]
         public async Task<ActionResult<List<RecipeIdea>>> GetRecipeIdeas(RecipeParams recipeParams)
         {
-            string mealtime = recipeParams.MealTime;
-            List<string> ingredients = recipeParams.Ingredients
-                                                    .Where(i => !string.IsNullOrEmpty(i.Description))
-                                                    .Select(i => i.Description!)
-                                                    .ToList();
+            //string mealtime = recipeParams.MealTime;
+            //List<string> ingredients = recipeParams.Ingredients
+            //                                        .Where(i => !string.IsNullOrEmpty(i.Description))
+            //                                        .Select(i => i.Description!)
+            //                                        .ToList();
 
-            if (string.IsNullOrEmpty(mealtime))
-            {
-                mealtime = "Breakfast";
-            }
+            //if (string.IsNullOrEmpty(mealtime))
+            //{
+            //    mealtime = "Breakfast";
+            //}
 
-            var ideas = await _openAIservice.CreateRecipeIdeas(mealtime, ingredients);
+            //var ideas = await _openAIservice.CreateRecipeIdeas(mealtime, ingredients);
 
             //return ideas;
             return SampleData.RecipeIdeas;
