@@ -63,7 +63,10 @@ namespace AiChef.Server.Controllers
         [HttpGet, Route("GetRecipeImage")]
         public async Task<RecipeImage> GetRecipeImage(string title)
         {
-            return SampleData.RecipeImage;
+            var recipeImage = await _openAIservice.CreateRecipeImage(title);
+            return recipeImage ?? SampleData.RecipeImage;
+
+            //return SampleData.RecipeImage;
         }
     
     }
