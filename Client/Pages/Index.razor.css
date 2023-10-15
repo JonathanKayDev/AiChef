@@ -1,5 +1,5 @@
 ﻿.page{
-    background-image: url(images/AIChefBG2.png);
+    background-image: url(images/AIChefBGjk.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -14,7 +14,7 @@
 .pagestyle{
     display: flex;
     flex-direction: column;
-    backdrop-filter: blur(5px) brightness(40%);
+    backdrop-filter: blur(5px) brightness(50%) saturate(0.8) contrast(0.6) ;
     height: 100%;
 }
 
