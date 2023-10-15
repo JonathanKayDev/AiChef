@@ -1,7 +1,9 @@
-
+:root {
+    --customnav: #83232c;
+}
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Kanit','Helvetica Neue', Helvetica, Arial, sans-serif;
     height: 100%;
     font-size: 1rem;
 }
@@ -9,6 +11,7 @@ html, body {
 body{
     display: flex;
     flex-direction: column;
+    background-color:var(--bs-gray-100);
 }
 
 #app{
