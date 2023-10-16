@@ -1,5 +1,5 @@
 :root {
-    --customnav: #83232c;
+    --customnav: #f3f3f3;
 }
 
 html, body {
@@ -8,10 +8,15 @@ html, body {
     font-size: 1rem;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
-    background-color:var(--bs-gray-100);
+    /*    background-color: var(--bs-gray-100);*/
+    background-image: url(../images/AIChefBGjk.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    backdrop-filter: blur(8px) brightness(120%) saturate(0.6) contrast(0.4);
 }
 
 #app{
@@ -120,3 +125,10 @@ a, .btn-link {
     .loading-progress-text:after {
         content: var(--blazor-load-percentage-text, "Loading");
     }
+
+.page-container {
+    background-color: #fcfcfd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 3px 3px 5px rgb(74, 66, 66, 0.69);
+}

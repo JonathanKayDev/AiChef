@@ -7,12 +7,12 @@
 @if (loaded)
 {
 
-    <div class="container">
-        <h3 class="mt-5">Choose a meal to make</h3>
+    <div class="container page-container mt-sm-5">
+        <h3 class="mb-3">Choose a meal to make</h3>
         <div class="list-group">
             @foreach (var idea in ideas)
             {
-                <button @onclick="() => GetRecipe(idea.Index)" class="list-group-item list-group-item-action list-group-item-danger p-2">
+                <button @onclick="() => GetRecipe(idea.Index)" class="list-group-item list-group-item-action list-group-item-light p-2">
                     <div class="d-flex w-100 justify-content-sm-between">
                         <h2 class="mb-1 fw-bold">@idea.Title</h2>
                     </div>
