@@ -11,11 +11,14 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    /*    background-color: var(--bs-gray-100);*/
     background-image: url(../images/AIChefBGjk.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    background-attachment:fixed;
+}
+
+main {
     backdrop-filter: blur(8px) brightness(120%) saturate(0.6) contrast(0.4);
 }
 

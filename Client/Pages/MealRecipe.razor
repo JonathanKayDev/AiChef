@@ -10,15 +10,12 @@
 {
     <div class="container page-container mt-sm-5">
         <div class="d-flex flex-column flex-lg-row justify-content-start">
-            <div class="text-center text-lg-start">
+            <div class="text-center text-lg-start mb-4 mb-lg-2">
                 <img src="@recipeImageUrl" class="rounded-3 recipeImage" />
             </div>
             <div class="flex-grow-1 px-3">
                 <h1 class="fw-bold">@recipe.Title</h1>
                 <p>@recipe.Summary</p>
-                <div class="text-end">
-                    <button class="btn btn-secondary d-print-none" @onclick="Print">Print</button>
-                </div>
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-2">
@@ -39,6 +36,11 @@
                         <li>@item</li>
                     }
                 </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-end">
+                <button class="btn btn-secondary d-print-none" @onclick="Print">Print</button>
             </div>
         </div>
     </div>

@@ -6,10 +6,10 @@
 
 <PageTitle>AI Chef - Create Meal</PageTitle>
 
-<div class="container mt-5 page-container">
-    <div class="row">
-        <div class="col">
-            <h1 class="mb-3">Create Meal</h1>
+<div class="mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-8 col-lg-6 col-xl-4 page-container">
+            <h1 class="mb-3 text-danger">Create Meal</h1>
             <EditForm EditContext="@editContext">
                 <div class="row gy-2">
                     <div class="col-12">
@@ -29,7 +29,7 @@
                         <button class="btn btn-outline-success" @onclick="AddIngredient">Add</button>
                         <button class="btn btn-outline-secondary" @onclick="ClearIngredients">Clear</button>
                     </div>
-                    <div class="col-12 mt-3">
+                    <div class="col-12 mt-5">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
