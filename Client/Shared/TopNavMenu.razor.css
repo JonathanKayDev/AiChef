@@ -1,3 +1,9 @@
 ﻿.topNavbg {
     background-color: var(--customnav);
 }
+
+ul {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
