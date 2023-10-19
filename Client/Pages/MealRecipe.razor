@@ -6,20 +6,24 @@
 @inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime;
 
+<PageTitle>AI Chef - Meal Recipe</PageTitle>
+
 @if (loaded)
 {
     <div class="container page-container mt-sm-5">
-        <div class="d-flex flex-column flex-lg-row justify-content-start">
-            <div class="text-center text-lg-start mb-4 mb-lg-2">
+        <div class="row row-cols-1 row-cols-md-12">
+            <div class="col col-md-4 text-center mb-4">
                 <img src="@recipeImageUrl" class="rounded-3 recipeImage" />
             </div>
-            <div class="flex-grow-1 px-3">
-                <h1 class="fw-bold">@recipe.Title</h1>
-                <p>@recipe.Summary</p>
+            <div class="col col-md-8">
+                <div class="ms-md-3">
+                    <h1 class="fw-bold text-danger">@recipe.Title</h1>
+                    <p>@recipe.Summary</p>
+                </div>
             </div>
         </div>
-        <div class="row row-cols-1 row-cols-md-2">
-            <div class="col mt-3">
+        <div class="row row-cols-1 row-cols-md-12">
+            <div class="col col-md-4 mt-3">
                 <h2>Ingredients</h2>
                 <ul>
                     @foreach (var item in recipe.Ingredients)
@@ -28,14 +32,16 @@
                     }
                 </ul>
             </div>
-            <div class="col mt-3">
-                <h2>Instructions</h2>
-                <ul>
-                    @foreach (var item in recipe.Instructions)
-                    {
-                        <li>@item</li>
-                    }
-                </ul>
+            <div class="col col-md-8 mt-3">
+                <div class="ms-md-3">
+                    <h2>Instructions</h2>
+                    <ul>
+                        @foreach (var item in recipe.Instructions)
+                        {
+                            <li>@item</li>
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -78,22 +84,32 @@ else
     {
         string baseuri = "Recipe/GetRecipe";
 
+        title = recipeState.RecipeIdeas.FirstOrDefault(i => i.Index == index).Title;
+
+        RecipeParams recipeParams = new RecipeParams()
+            {
+                MealTime = recipeState.MealTime,
+                Ingredients = recipeState.Ingredients,
+                SelectedIdea = title
+            };
+
         try
         {
-            title = recipeState.RecipeIdeas.FirstOrDefault(i => i.Index == index).Title;
-
-            RecipeParams recipeParams = new RecipeParams()
-                {
-                    MealTime = recipeState.MealTime,
-                    Ingredients = recipeState.Ingredients,
-                    SelectedIdea = title
-                };
-
             // get the recipe image
             HttpResponseMessage responseImage = await httpClient.GetAsync($"Recipe/GetRecipeImage?title={HttpUtility.UrlEncode(title)}");
             var recipeImage = await responseImage.Content.ReadFromJsonAsync<RecipeImage>();
             recipeImageUrl = recipeImage!.Data[0]!.Url;
+        }
+        catch (Exception ex)
+        {
+            //TODO - redirection on failed attempt does not work
+            Console.WriteLine($"Error: {ex.Message}");
+            navigationManager.NavigateTo("mealideas", forceLoad: true);
+            throw;
+        }
 
+        try
+        {
             // get the recipe
             HttpResponseMessage responseRecipe = await httpClient.PostAsJsonAsync(baseuri, recipeParams);
             responseRecipe.EnsureSuccessStatusCode();
@@ -106,8 +122,10 @@ else
         catch (Exception ex)
         {
             Console.WriteLine($"Error: {ex.Message}");
+            navigationManager.NavigateTo("mealideas", forceLoad: true);
             throw;
         }
+
     }
 
     private async Task Print()

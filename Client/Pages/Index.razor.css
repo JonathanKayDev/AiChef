@@ -45,3 +45,13 @@ a:visited{
 a:hover{
     cursor: pointer;
 }
+
+img {
+    height: 200px;
+}
+
+@media(min-width:576px){
+    img {
+        height: 300px;
+    }
+}

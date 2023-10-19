@@ -131,7 +131,17 @@ a, .btn-link {
 
 .page-container {
     background-color: #fcfcfd;
-    border-radius: 5px;
     padding: 20px;
     box-shadow: 3px 3px 5px rgb(74, 66, 66, 0.69);
+}
+
+@media(min-width: 576px){
+    .page-container {
+        border-radius: 5px;
+    }
+}
+
+/* Bootstrap over ride*/
+.row {
+    --bs-gutter-x: 0;
 }

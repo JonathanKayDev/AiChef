@@ -109,11 +109,13 @@
     private void ClearIngredients()
     {
         ingredients.Clear();
+        recipeState.RecipeIdeas.Clear();
     }
 
     private void RemoveIngredient(Guid id)
     {
         ingredients.Remove(ingredients.First(i => i.Id == id));
+        recipeState.RecipeIdeas.Clear();
     }
 
     private void HandleSubmit()
